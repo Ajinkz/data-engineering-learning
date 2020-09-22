@@ -26,6 +26,10 @@ CREATE TABLE users(id integer PRIMARY KEY,
 email text,name text, address text);
 """)
 ```
+### Inserting into values
+```python
+cur.execute("INSERT INTO users VALUES (%s, %s, %s, %s);", (2, 'sherlocksh@mail.in', 'Sherlock', '221B Baker's Street'))
+```
 
 ### Commit and close database connection
 ```python
