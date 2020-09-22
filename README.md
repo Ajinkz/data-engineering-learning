@@ -22,13 +22,25 @@ all_result = cur.fetchall()
 ### Create table
 ```python
 cur.execute("""
-CREATE TABLE users(id integer PRIMARY KEY,
-email text,name text, address text);
+CREATE TABLE users(id integer PRIMARY KEY,email text,name text, address text);
 """)
 ```
 ### Inserting into values
 ```python
 cur.execute("INSERT INTO users VALUES (%s, %s, %s, %s);", (2, 'sherlocksh@mail.in', 'Sherlock', '221B Baker's Street'))
+```
+
+### Pushing data from csv into database
+`accounts.csv` with fields `id`, `email`, `name`, `address`
+
+```python
+import csv
+with open('accounts.csv', 'r') as file:
+    next(file) # skip csv header (first row with column titles)
+    reader = csv.reader(file)
+    for row in reader:
+        cur.execute("INSERT INTO users VALUES (%s, %s, %s, %s);", row)
+        
 ```
 
 ### Commit and close database connection
